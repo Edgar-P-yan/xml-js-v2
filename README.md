@@ -2,6 +2,7 @@
 
 Convert XML text to Javascript object / JSON text (and vice versa).
 
+
 [![Build Status](https://ci.appveyor.com/api/projects/status/0ky9f115m0f0r0gf?svg=true)](https://ci.appveyor.com/project/nashwaan/xml-js)
 [![Build Status](https://travis-ci.org/nashwaan/xml-js.svg?branch=master)](https://travis-ci.org/nashwaan/xml-js)
 [![Build Status](https://img.shields.io/circleci/project/nashwaan/xml-js.svg)](https://circleci.com/gh/nashwaan/xml-js)
@@ -12,16 +13,22 @@ Convert XML text to Javascript object / JSON text (and vice versa).
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f6ed5dd79a5b4041bfd2732963c4d09b)](https://www.codacy.com/app/ysf953/xml-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nashwaan/xml-js&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/nashwaan/xml-js/badges/gpa.svg)](https://codeclimate.com/github/nashwaan/xml-js)
 
-[![npm](http://img.shields.io/npm/v/xml-js.svg)](https://www.npmjs.com/package/xml-js)
-[![License](https://img.shields.io/npm/l/xml-js.svg)](LICENSE)
-[![Downloads/month](https://img.shields.io/npm/dm/xml-js.svg)](http://www.npmtrends.com/xml-js)
-[![Dependency Status](https://david-dm.org/nashwaan/xml-js.svg)](https://david-dm.org/nashwaan/xml-js)
-[![Package Quality](http://npm.packagequality.com/shield/xml-js.svg)](http://packagequality.com/#?package=xml-js)
+[![npm](http://img.shields.io/npm/v/xml-js-v2.svg)](https://www.npmjs.com/package/xml-js-v2)
+[![License](https://img.shields.io/npm/l/xml-js-v2.svg)](LICENSE)
+[![Downloads/month](https://img.shields.io/npm/dm/xml-js-v2.svg)](http://www.npmtrends.com/xml-js-v2)
+[![Dependency Status](https://david-dm.org/nashwaan/xml-js-v2.svg)](https://david-dm.org/nashwaan/xml-js-v2)
+[![Package Quality](http://npm.packagequality.com/shield/xml-js-v2.svg)](http://packagequality.com/#?package=xml-js-v2)
 
 # Synopsis
 
 ![Convert XML ↔ JS/JSON as compact or non-compact](http://nashwaan.github.io/xml-js/images/synopsis.svg)
 <!---![Convert XML ↔ JS/JSON as compact or non-compact](/synopsis.png?raw=true "Synopsis Diagram")-->
+
+# This is a fork
+
+This is a fork of the original [xml-js](https://github.com/nashwaan/xml-js) library by [nashwaan](https://github.com/nashwaan) with some improvements/changes that I need for work. List of these changes:
+ - When converting from JS to XML, do not leave a string like `&amp;` unchanged, but replace it with `&amp;amp;` instead. This is the correct behaviour and it should have always been this way, the original one caused bugs, for example both `&amp;` and `&` strings were converted to `&amp;`.
+
 
 # Features
 
@@ -71,7 +78,7 @@ Most converters will produce compact output like this `{a:[{_:{x:"1"}},{_:{x:"3"
 which has merged both `<a>` elements into an array. If you try to convert this back to xml, you will get `<a x="1"/><a x="3"/><b x="2"/>`
 which has not preserved the order of elements!
 
-The reason behind this behavior is due to the inherent limitation in the compact representation. 
+The reason behind this behavior is due to the inherent limitation in the compact representation.
 Because output like `{a:{_:{x:"1"}}, b:{_:{x:"2"}}, a:{_:{x:"3"}}}` is illegal (same property name `a` should not appear twice in an object). This leaves no option but to use array `{a:[{_:{x:"1"}},{_:{x:"3"}}]`.
 
 The non-compact output, which is supported by this library, will produce more information and always guarantees the order of the elements as they appeared in the XML file.
@@ -89,19 +96,19 @@ Tip: You can reduce the output size by using shorter [key names](#options-for-ch
 ## Installation
 
 ```
-npm install --save xml-js
+npm install --save xml-js-v2
 ```
 
 You can also install it globally to use it as a command line convertor (see [Command Line](#command-line)).
 
 ```
-npm install --global xml-js
+npm install --global xml-js-v2
 ```
 
 ## Quick start
 
 ```js
-var convert = require('xml-js');
+var convert = require('xml-js-v2');
 var xml =
 '<?xml version="1.0" encoding="utf-8"?>' +
 '<note importance="high" logged="true">' +
@@ -137,7 +144,7 @@ Or [run and edit](https://runkit.com/587874e079a2f60013c1f5ac/587874e079a2f60013
 
 This library provides 4 functions: `js2xml()`, `json2xml()`, `xml2js()`, and `xml2json()`. Here are the usages for each one (see more details in the following sections):
 ```js
-var convert = require('xml-js');
+var convert = require('xml-js-v2');
 result = convert.js2xml(js, options);     // to convert javascript object to xml text
 result = convert.json2xml(json, options); // to convert json text to xml text
 result = convert.xml2js(xml, options);    // to convert xml text to javascript object
@@ -149,7 +156,7 @@ result = convert.xml2json(xml, options);  // to convert xml text to json text
 To convert JavaScript object to XML text, use `js2xml()`. To convert JSON text to XML text, use `json2xml()`.
 
 ```js
-var convert = require('xml-js');
+var convert = require('xml-js-v2');
 var json = require('fs').readFileSync('test.json', 'utf8');
 var options = {compact: true, ignoreComment: true, spaces: 4};
 var result = convert.json2xml(json, options);
@@ -240,7 +247,7 @@ Two default values mean the first is used for *non-compact* output and the secon
 
 > **TIP**: In compact mode, you can further reduce output result by using fewer characters for key names `{textKey: '_', attributesKey: '$', commentKey: 'value'}`. This is also applicable to non-compact mode.
 
-> **TIP**: In non-compact mode, you probably want to set `{textKey: 'value', cdataKey: 'value', commentKey: 'value'}` 
+> **TIP**: In non-compact mode, you probably want to set `{textKey: 'value', cdataKey: 'value', commentKey: 'value'}`
 > to make it more consistent and easier for your client code to go through the contents of text, cdata, and comment.
 
 ## Options for Custom Processing Functions
@@ -311,14 +318,14 @@ xml-js test.xml --spaces 4 --out test.json  // json result will be saved to test
 If you want to use it as script in package.json (can also be helpful in [task automation via npm scripts](http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/))
 
 ```
-npm install --save xml-js   // no need to install this library globally
+npm install --save xml-js-v2   // no need to install this library globally
 ```
 
 In package.json, write a script:
 ```json
 ...
   "dependencies": {
-    "xml-js": "latest"
+    "xml-js-v2": "latest"
   },
   "scripts": {
     "convert": "xml-js test.json --spaces 4"
@@ -383,8 +390,8 @@ For live testing, use `npm start` instead of `npm test`.
 
 ## Reporting
 
-Use [this link](https://github.com/nashwaan/xml-js/issues) to report an issue or bug. Please include a sample code where the code is failing.
+Use [this link](https://github.com/Edgar-P-yan/xml-js-v2/issues) to report an issue or bug. Please include a sample code where the code is failing.
 
 # License
 
-[MIT](https://github.com/nashwaan/xml-js/blob/master/LICENSE)
+[MIT](https://github.com/Edgar-P-yan/xml-js-v2/blob/master/LICENSE)
