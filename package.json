@@ -1,17 +1,17 @@
 {
-  "name": "xml-js",
-  "version": "1.6.11",
-  "description": "A convertor between XML text and Javascript object / JSON text.",
+  "name": "xml-js-v2",
+  "version": "2.0.0",
+  "description": "A fork of xml-js with some improvements. A convertor between XML text and Javascript object / JSON text.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nashwaan/xml-js.git"
+    "url": "git+https://github.com/Edgar-P-yan/xml-js-v2.git"
   },
-  "author": "Yousuf Almarzooqi <ysf953@gmail.com>",
+  "author": "Edgar Pogosyan <edgar.pogosyan.a@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nashwaan/xml-js/issues"
+    "url": "https://github.com/Edgar-P-yan/xml-js-v2/issues"
   },
-  "homepage": "https://github.com/nashwaan/xml-js#readme",
+  "homepage": "https://github.com/Edgar-P-yan/xml-js-v2#readme",
   "keywords": [
     "XML",
     "xml",
