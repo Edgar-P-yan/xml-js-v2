@@ -28,6 +28,7 @@ Convert XML text to Javascript object / JSON text (and vice versa).
 
 This is a fork of the original [xml-js](https://github.com/nashwaan/xml-js) library by [nashwaan](https://github.com/nashwaan) with some improvements/changes that I need for work. List of these changes:
  - When converting from JS to XML, by default do not leave a string like `&amp;` unchanged, but replace it with `&amp;amp;` instead. This is the correct behaviour and it should have always been this way, the original one caused bugs, for example both `&amp;` and `&` strings were converted to `&amp;`. However, you can use the new flag `avoidDoubleSanitization: true` if you need the original behaviour.
+ - Updated `sax` version to the latest.
 
 
 # Features

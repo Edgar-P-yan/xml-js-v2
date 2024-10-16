@@ -1,6 +1,6 @@
 {
   "name": "xml-js-v2",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A fork of xml-js with some improvements. A convertor between XML text and Javascript object / JSON text.",
   "repository": {
     "type": "git",
