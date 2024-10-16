@@ -90,6 +90,15 @@ declare namespace Options {
     indentInstruction?: boolean
     fullTagEmptyElement?: boolean
     noQuotesForNativeAttributes?: boolean
+    /**
+     * If set to true, it will not sanitize already escaped characters.
+     *
+     * If this is not set or set to `false`, then a string like `&amp; &` will be converted to `&amp;amp; &amp;`.
+     * If this is set to `true`, then `&amp; &` will be converted to `&amp; &amp;`.
+     *
+     * @default false
+     */
+    avoidDoubleSanitization?: boolean
     doctypeFn?: (value: string, currentElementName: string, currentElementObj: object) => void;
     instructionFn?: (
       instructionValue: string,

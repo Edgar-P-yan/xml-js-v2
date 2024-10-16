@@ -27,7 +27,7 @@ Convert XML text to Javascript object / JSON text (and vice versa).
 # This is a fork
 
 This is a fork of the original [xml-js](https://github.com/nashwaan/xml-js) library by [nashwaan](https://github.com/nashwaan) with some improvements/changes that I need for work. List of these changes:
- - When converting from JS to XML, do not leave a string like `&amp;` unchanged, but replace it with `&amp;amp;` instead. This is the correct behaviour and it should have always been this way, the original one caused bugs, for example both `&amp;` and `&` strings were converted to `&amp;`.
+ - When converting from JS to XML, by default do not leave a string like `&amp;` unchanged, but replace it with `&amp;amp;` instead. This is the correct behaviour and it should have always been this way, the original one caused bugs, for example both `&amp;` and `&` strings were converted to `&amp;`. However, you can use the new flag `avoidDoubleSanitization: true` if you need the original behaviour.
 
 
 # Features
@@ -183,6 +183,8 @@ The below options are applicable for both `js2xml()` and `json2xml()` functions.
 | `ignoreCdata`         | `false` | Whether to ignore writing CData of the elements. That is, no `<![CDATA[ ]]>` will be generated. |
 | `ignoreDoctype`       | `false` | Whether to ignore writing Doctype of the elements. That is, no `<!DOCTYPE >` will be generated. |
 | `ignoreText`          | `false` | Whether to ignore writing texts of the elements. For example, `hi` text in `<a>hi</a>` will be ignored. |
+| `avoidDoubleSanitization` | `false` | If set to true, it will not sanitize already escaped characters. If this is not set or set to `false`, then a string like `&amp; &` will be converted to `&amp;amp; &amp;`. If this is set to `true`, then `&amp; &` will be converted to `&amp; &amp;`.
+|
 
 ## Convert XML → JS object / JSON
 
